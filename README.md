@@ -1,0 +1,2 @@
+# 37-SOPTKATHON-SERVER-ANDROID2
+37기 솝커톤 서버 안드로이드 2팀입니다
