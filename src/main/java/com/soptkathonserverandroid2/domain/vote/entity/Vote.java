@@ -25,9 +25,11 @@ public class Vote {
     @JoinColumn(name = "issue_id")
     private Issue issue;
 
-    public Vote(Boolean isAgree, User user, Issue issue) {
-        this.isAgree = isAgree;
-        this.user = user;
-        this.issue = issue;
+    public static Vote create(User user, Issue issue, boolean isAgree) {
+        Vote vote = new Vote();
+        vote.user = user;
+        vote.issue = issue;
+        vote.isAgree = isAgree;
+        return vote;
     }
 }

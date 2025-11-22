@@ -24,15 +24,19 @@ public class RecommendService {
     private final IssueRepository issueRepository;
 
     @Transactional
-    public void createRecommend(Long userId, Long issuesId) {
+    public void createRecommend(Long userId, Long issueId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 
-        Issue issue = issueRepository.findById(issuesId)
+        Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new NotFoundException(ISSUE_NOT_FOUND));
 
-        Recommend recommend = Recommend.create(user, issue);
+        Recommend recommend = recommendRepository.findByUserAndIssue(user, issue)
+                .orElseGet(() -> {
+                    Recommend newRecommend = Recommend.create(user, issue);
+                    return recommendRepository.save(newRecommend);
+                });
 
-        recommendRepository.save(recommend);
+        recommend.recommend();
     }
 }

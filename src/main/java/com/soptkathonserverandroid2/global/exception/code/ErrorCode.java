@@ -34,8 +34,10 @@ public enum ErrorCode {
 	/* 409 CONFLICT */
 
 	DUPLICATED_NICKNAME(HttpStatus.CONFLICT, "E409001", "리소스 중복입니다"),
+    DUPLICATED_VOTE(HttpStatus.CONFLICT, "E409002", "이미 투표했습니다"),
 
-	/* 500 INTERNAL SERVER ERROR */
+
+    /* 500 INTERNAL SERVER ERROR */
 
 	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E500001", "서버 내부에서 오류가 발생했습니다");
 

@@ -25,15 +25,15 @@ public class Issue {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "issue_range")
+    @Column(nullable = false, name = "issue_range", length = 20)
     private Range range;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "college")
+    @Column(nullable = false, name = "college", length = 50)
     private College college;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "department")
+    @Column(nullable = false, name = "department", length = 50)
     private Department department;
 
     @CreatedDate
