@@ -27,7 +27,7 @@ public record VoteInfoResponse(
 			user.getCollege().getValue(),
 			user.getDepartment().getValue(),
 			isVoted,
-			null,
+			false,
 			null,
 			null
 		);
