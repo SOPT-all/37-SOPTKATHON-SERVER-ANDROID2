@@ -40,8 +40,8 @@ jobs:
 
     - name: Docker 이미지 빌드 및 푸시
       run: |
-        docker build --platform linux/amd64 -t woals2840/sopkathon .
-        docker push woals2840/sopkathon
+        docker build --platform linux/amd64 -t woals2840/sopkathon2 .
+        docker push woals2840/sopkathon2
 
   deploy-cd:      
     needs: deploy-ci
@@ -56,5 +56,5 @@ jobs:
         key: ${{ secrets.RELEASE_SERVER_KEY }}
         script: |
           docker rm -f sopkathon || true
-          docker pull woals2840/sopkathon
-          docker run -d --restart unless-stopped --name sopkathon -p 8080:8080 woals2840/sopkathon
+          docker pull woals2840/sopkathon2
+          docker run -d --restart unless-stopped --name sopkathon2 -p 8080:8080 woals2840/sopkathon2
