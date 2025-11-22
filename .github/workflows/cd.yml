@@ -55,6 +55,6 @@ jobs:
         username: ${{ secrets.RELEASE_SERVER_USER }}
         key: ${{ secrets.RELEASE_SERVER_KEY }}
         script: |
-          docker rm -f sopkathon || true
+          docker rm -f sopkathon2 || true
           docker pull woals2840/sopkathon2
           docker run -d --restart unless-stopped --name sopkathon2 -p 8080:8080 woals2840/sopkathon2
