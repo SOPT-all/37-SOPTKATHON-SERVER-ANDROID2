@@ -30,7 +30,6 @@ import static com.soptkathonserverandroid2.global.exception.code.ErrorCode.USER_
 public class IssueService {
 	private final IssueRepository issueRepository;
 	private final UserService userService;
-	private final UserRepository userRepository;
 
 	public IssueInfoResponse getBestIssue() {
 		Issue bestIssue = issueRepository.findTopByIsPassedFalseOrderByRecommendCountDesc();
@@ -60,11 +59,8 @@ public class IssueService {
 
 	@Transactional
 	public void createIssue(Long userId, String title, String description, Range range) {
-		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-		College college = userRepository.findCollegeById(userId);
-		Department department = userRepository.findDepartmentById(userId);
-		Issue issue = Issue.create(user, title, description, range, college, department);
+		User user = userService.getUser(userId);
+		Issue issue = Issue.create(user, title, description, range, user.getCollege(), user.getDepartment());
 
 		issueRepository.save(issue);
 	}
