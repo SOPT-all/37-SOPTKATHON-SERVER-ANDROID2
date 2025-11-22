@@ -14,28 +14,31 @@ public record VoteInfoResponse(
 	List<String> imageUrl,
 	String college,
 	String department,
+	boolean isVoted,
 	Integer agreeCount,
 	Integer disagreeCount
 ) {
-	public static VoteInfoResponse of(User user, Issue issue) {
+	public static VoteInfoResponse of(User user, Issue issue, boolean isVoted) {
 		return new VoteInfoResponse(
 			issue.getTitle(),
 			issue.getDescription(),
 			issue.getImageUrls(),
 			user.getCollege().getValue(),
 			user.getDepartment().getValue(),
+			isVoted,
 			null,
 			null
 		);
 	}
 
-	public static VoteInfoResponse of(User user, Issue issue, int agreeCount, int disagreeCount) {
+	public static VoteInfoResponse of(User user, Issue issue, boolean isVoted, int agreeCount, int disagreeCount) {
 		return new VoteInfoResponse(
 			issue.getTitle(),
 			issue.getDescription(),
 			issue.getImageUrls(),
 			user.getCollege().getValue(),
 			user.getDepartment().getValue(),
+			isVoted,
 			issue.getAgreeCount(),
 			issue.getDisagreeCount()
 		);
