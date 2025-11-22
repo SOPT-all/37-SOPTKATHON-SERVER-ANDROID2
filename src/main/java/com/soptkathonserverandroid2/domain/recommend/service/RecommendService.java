@@ -37,6 +37,9 @@ public class RecommendService {
                     return recommendRepository.save(newRecommend);
                 });
 
-        recommend.recommend();
+        if (!recommend.getIsRecommend()) {
+            recommend.recommend();
+            issue.increaseRecommendCount();
+        }
     }
 }

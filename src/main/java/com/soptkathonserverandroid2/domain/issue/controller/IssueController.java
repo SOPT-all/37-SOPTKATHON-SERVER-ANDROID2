@@ -2,6 +2,7 @@ package com.soptkathonserverandroid2.domain.issue.controller;
 
 import java.util.List;
 
+import com.soptkathonserverandroid2.domain.issue.dto.response.PassedIssueInfoResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -49,5 +50,11 @@ public class IssueController {
         return ResponseEntity
                 .status(SUCCESS_CREATE.getHttpStatus().value())
                 .body(SuccessResponse.of(SuccessCode.SUCCESS_CREATE));
+    }
+
+    @GetMapping("/pass")
+    public ResponseEntity<SuccessResponse<List<PassedIssueInfoResponse>>> getPassedIssueList(@RequestHeader Long userId) {
+        List<PassedIssueInfoResponse> passedIssueList = issueService.getPassedIssueList(userId);
+        return ResponseEntity.ok(SuccessResponse.of(SuccessCode.SUCCESS_FETCH, passedIssueList));
     }
 }

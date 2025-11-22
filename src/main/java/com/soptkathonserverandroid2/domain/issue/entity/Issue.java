@@ -56,6 +56,9 @@ public class Issue {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Builder.Default
+    private boolean isCouncil = false;
+
     @ElementCollection
     private List<String> imageUrls;
 
@@ -73,7 +76,19 @@ public class Issue {
         issue.expiredAt = LocalDate.now().plusDays(21);
         issue.college = college;
         issue.department = department;
+        issue.isCouncil = false;
         return issue;
+    }
+
+    public void increaseRecommendCount() {
+        this.recommendCount++;
+        checkAndUpdatePassedStatus();
+    }
+
+    private void checkAndUpdatePassedStatus() {
+        if (this.recommendCount >= 300) {
+            this.isPassed = true;
+        }
     }
 
     public void increaseAgreeCount() {
