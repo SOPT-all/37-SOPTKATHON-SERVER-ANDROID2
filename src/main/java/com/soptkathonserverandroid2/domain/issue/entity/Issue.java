@@ -1,19 +1,17 @@
 package com.soptkathonserverandroid2.domain.issue.entity;
 
 import com.soptkathonserverandroid2.domain.issue.entity.enums.Range;
-import com.soptkathonserverandroid2.domain.user.entity.enums.College;
-import com.soptkathonserverandroid2.domain.user.entity.enums.Department;
+import com.soptkathonserverandroid2.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Issue {
     @Id
@@ -25,6 +23,7 @@ public class Issue {
     private String description;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "issue_range")
     private Range range;
 
     @CreatedDate
@@ -38,15 +37,25 @@ public class Issue {
 
     private int disagreeCount;
 
-    @Builder
-    public Issue(String title, String description, Range range, LocalDate createdAt, LocalDate expiredAt, int recommendCount, int agreeCount, int disagreeCount) {
-        this.title = title;
-        this.description = description;
-        this.range = range;
-        this.createdAt = createdAt;
-        this.expiredAt = expiredAt;
-        this.recommendCount = recommendCount;
-        this.agreeCount = agreeCount;
-        this.disagreeCount = disagreeCount;
+    @Builder.Default
+    private boolean isPassed = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public static Issue create(User user, String title, String description, Range range) {
+        Issue issue = new Issue();
+        issue.user = user;
+        issue.title = title;
+        issue.description = description;
+        issue.range = range;
+        issue.recommendCount = 0;
+        issue.agreeCount = 0;
+        issue.disagreeCount = 0;
+        issue.isPassed = false;
+        issue.createdAt = LocalDate.now();
+        issue.expiredAt = LocalDate.now().plusDays(21);
+        return issue;
     }
 }
