@@ -14,7 +14,5 @@ public interface IssueCustomRepository {
 		String range,
 		College userCollege,
 		Department userDepartment);
-
-
 }
 

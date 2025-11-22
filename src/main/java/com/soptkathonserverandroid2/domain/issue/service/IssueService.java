@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import com.soptkathonserverandroid2.domain.issue.dto.response.PassedIssueInfoResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,4 +70,12 @@ public class IssueService {
 	public Issue getIssue(Long userId, Long issueId) {
 		return issueRepository.findById(issueId).orElseThrow(() -> new NotFoundException(ErrorCode.ISSUE_NOT_FOUND));
 	}
+
+    public List<PassedIssueInfoResponse> getPassedIssueList(Long userId) {
+        User user = userService.getUser(userId);
+        List<Issue> issueList = issueRepository.findAllByIsPassedTrueOrderByIsCouncilDesc();
+        return issueList.stream()
+                .map(PassedIssueInfoResponse::from)
+                .toList();
+    }
 }
