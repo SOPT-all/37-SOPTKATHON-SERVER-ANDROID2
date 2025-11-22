@@ -1,9 +1,18 @@
 package com.soptkathonserverandroid2.domain.recommend.service;
 
+import com.soptkathonserverandroid2.domain.issue.entity.Issue;
+import com.soptkathonserverandroid2.domain.issue.repository.IssueRepository;
+import com.soptkathonserverandroid2.domain.recommend.entity.Recommend;
 import com.soptkathonserverandroid2.domain.recommend.repository.RecommendRepository;
+import com.soptkathonserverandroid2.domain.user.entity.User;
+import com.soptkathonserverandroid2.domain.user.repository.UserRepository;
+import com.soptkathonserverandroid2.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.soptkathonserverandroid2.global.exception.code.ErrorCode.ISSUE_NOT_FOUND;
+import static com.soptkathonserverandroid2.global.exception.code.ErrorCode.USER_NOT_FOUND;
 
 @Service
 @Transactional(readOnly=true)
@@ -11,7 +20,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class RecommendService {
 
     private final RecommendRepository recommendRepository;
+    private final UserRepository userRepository;
+    private final IssueRepository issueRepository;
 
     @Transactional
-    public
+    public void createRecommend(Long userId, Long issuesId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        Issue issue = issueRepository.findById(issuesId)
+                .orElseThrow(() -> new NotFoundException(ISSUE_NOT_FOUND));
+
+        Recommend recommend = Recommend.create(user, issue);
+
+        recommendRepository.save(recommend);
+    }
 }

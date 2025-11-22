@@ -4,6 +4,8 @@ import com.soptkathonserverandroid2.domain.issue.entity.Issue;
 import com.soptkathonserverandroid2.domain.issue.entity.enums.Range;
 import com.soptkathonserverandroid2.domain.issue.repository.IssueRepository;
 import com.soptkathonserverandroid2.domain.user.entity.User;
+import com.soptkathonserverandroid2.domain.user.entity.enums.College;
+import com.soptkathonserverandroid2.domain.user.entity.enums.Department;
 import com.soptkathonserverandroid2.domain.user.repository.UserRepository;
 import com.soptkathonserverandroid2.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,9 @@ public class IssueService {
     public void createIssue(Long userId, String title, String description, Range range) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-
-        Issue issue = Issue.create(user, title, description, range);
+        College college = userRepository.findCollegeById(userId);
+        Department department = userRepository.findDepartmentById(userId);
+        Issue issue = Issue.create(user, title, description, range, college, department);
 
         issueRepository.save(issue);
     }
