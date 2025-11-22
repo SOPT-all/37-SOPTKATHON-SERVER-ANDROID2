@@ -6,7 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum College {
-    A("a"),
-    B("b");
+    ART("미술대학"),
+    ENGINEERING("공과대학"),
+    BUSINESS("경영대학"),
+    COUNCIL("학생회");
     String value;
 }
