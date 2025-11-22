@@ -9,6 +9,8 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -54,6 +56,9 @@ public class Issue {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ElementCollection
+    private List<String> imageUrls;
+
     public static Issue create(User user, String title, String description, Range range, College college, Department department) {
         Issue issue = new Issue();
         issue.user = user;
@@ -69,5 +74,13 @@ public class Issue {
         issue.college = college;
         issue.department = department;
         return issue;
+    }
+
+    public void increaseAgreeCount() {
+        this.agreeCount++;
+    }
+
+    public void increaseDisagreeCount() {
+        this.disagreeCount++;
     }
 }

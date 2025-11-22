@@ -9,15 +9,17 @@ import com.soptkathonserverandroid2.domain.user.entity.User;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record IssueInfoResponse(
 	String title,
+	String college,
 	Integer recommendCount,
 	String range,
-	String college,
+	String department,
 	int remainedDay,
 	Boolean isBest
 	) {
 	public static IssueInfoResponse of(Issue issue, User user, int remainedDay, boolean isBest) {
 		return new IssueInfoResponse(
 			issue.getTitle(),
+			issue.getCollege().getValue(),
 			issue.getRecommendCount(),
 			issue.getRange().getValue(),
 			user.getCollege().getValue(),
@@ -29,6 +31,7 @@ public record IssueInfoResponse(
 	public static IssueInfoResponse of(Issue issue, User user, int remainedDay) {
 		return new IssueInfoResponse(
 			issue.getTitle(),
+			issue.getCollege().getValue(),
 			null,
 			issue.getRange().getValue(),
 			user.getCollege().getValue(),

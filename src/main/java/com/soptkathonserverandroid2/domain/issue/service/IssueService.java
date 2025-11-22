@@ -17,6 +17,7 @@ import com.soptkathonserverandroid2.domain.user.entity.enums.Department;
 import com.soptkathonserverandroid2.domain.user.repository.UserRepository;
 import com.soptkathonserverandroid2.global.exception.NotFoundException;
 import com.soptkathonserverandroid2.domain.user.service.UserService;
+import com.soptkathonserverandroid2.global.exception.code.ErrorCode;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,9 @@ public class IssueService {
 		Issue issue = Issue.create(user, title, description, range, user.getCollege(), user.getDepartment());
 
 		issueRepository.save(issue);
+	}
+
+	public Issue getIssue(Long userId, Long issueId) {
+		return issueRepository.findById(issueId).orElseThrow(() -> new NotFoundException(ErrorCode.ISSUE_NOT_FOUND));
 	}
 }
