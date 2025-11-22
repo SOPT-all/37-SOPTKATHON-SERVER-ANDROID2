@@ -3,19 +3,20 @@ package com.soptkathonserverandroid2.domain.recommend.entity;
 import com.soptkathonserverandroid2.domain.issue.entity.Issue;
 import com.soptkathonserverandroid2.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recommend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean isRecommend;
+    @Builder.Default
+    private Boolean isRecommend = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -24,10 +25,4 @@ public class Recommend {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_id")
     private Issue issue;
-
-    public Recommend(Boolean isRecommend, User user, Issue issue) {
-        this.isRecommend = isRecommend;
-        this.user = user;
-        this.issue = issue;
-    }
 }
