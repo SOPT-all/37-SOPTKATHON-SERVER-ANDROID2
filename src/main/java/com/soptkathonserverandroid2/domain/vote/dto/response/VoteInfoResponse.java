@@ -15,6 +15,7 @@ public record VoteInfoResponse(
 	String college,
 	String department,
 	boolean isVoted,
+	Boolean isAgree,
 	Integer agreeCount,
 	Integer disagreeCount
 ) {
@@ -27,11 +28,12 @@ public record VoteInfoResponse(
 			user.getDepartment().getValue(),
 			isVoted,
 			null,
+			null,
 			null
 		);
 	}
 
-	public static VoteInfoResponse of(User user, Issue issue, boolean isVoted, int agreeCount, int disagreeCount) {
+	public static VoteInfoResponse of(Vote vote, User user, Issue issue, boolean isVoted, int agreeCount, int disagreeCount) {
 		return new VoteInfoResponse(
 			issue.getTitle(),
 			issue.getDescription(),
@@ -39,6 +41,7 @@ public record VoteInfoResponse(
 			user.getCollege().getValue(),
 			user.getDepartment().getValue(),
 			isVoted,
+			vote.getIsAgree(),
 			issue.getAgreeCount(),
 			issue.getDisagreeCount()
 		);
