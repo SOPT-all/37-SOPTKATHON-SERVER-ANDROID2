@@ -25,4 +25,16 @@ public class Recommend {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_id")
     private Issue issue;
+
+    public static Recommend create(User user, Issue issue) {
+        Recommend recommend = new Recommend();
+        recommend.isRecommend = false;
+        recommend.user = user;
+        recommend.issue = issue;
+        return recommend;
+    }
+
+    public void recommend() {
+        this.isRecommend = true;
+    }
 }

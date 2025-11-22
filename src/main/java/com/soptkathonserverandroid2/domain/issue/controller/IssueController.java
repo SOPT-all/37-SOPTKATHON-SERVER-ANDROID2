@@ -1,4 +1,4 @@
-package com.soptkathonserverandroid2.domain.issue.Controller;
+package com.soptkathonserverandroid2.domain.issue.controller;
 
 import com.soptkathonserverandroid2.domain.issue.dto.request.IssueCreateRequest;
 import com.soptkathonserverandroid2.domain.issue.service.IssueService;

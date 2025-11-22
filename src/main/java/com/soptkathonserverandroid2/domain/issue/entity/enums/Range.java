@@ -1,5 +1,13 @@
 package com.soptkathonserverandroid2.domain.issue.entity.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Range {
-    range1, range2, range3, range4, range5, range6, range7, range8, range9, range10;
+    ALL("전체"),
+    DEPARTMENT("학과"),
+    COLLEGE("단과대학");
+    private String value;
 }

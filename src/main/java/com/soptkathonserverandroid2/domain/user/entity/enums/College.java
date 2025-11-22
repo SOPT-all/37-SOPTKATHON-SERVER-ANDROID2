@@ -1,9 +1,12 @@
 package com.soptkathonserverandroid2.domain.user.entity.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum College {
-    A,
-    B,
-    C,
-    D,
-    E,
+    A("a"),
+    B("b");
+    String value;
 }
