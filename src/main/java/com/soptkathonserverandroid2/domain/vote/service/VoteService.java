@@ -60,7 +60,8 @@ public class VoteService {
         Issue issue = issueService.getIssue(userId, issueId);
 
         if(voteRepository.existsByUserAndIssue(user, issue)) {
-            return VoteInfoResponse.of(user, issue, true, issue.getAgreeCount(), issue.getDisagreeCount());
+            Vote vote = voteRepository.findByUserAndIssue(user, issue);
+            return VoteInfoResponse.of(vote, user, issue, true, issue.getAgreeCount(), issue.getDisagreeCount());
         }
 
         return  VoteInfoResponse.of(user,issue, false);
